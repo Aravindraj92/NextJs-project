@@ -3,15 +3,15 @@ import Image from "next/image";
 import fetchProduct from "../../action";
 import fetchProducts from "../../action";
 
-export async function generateStaticParams() {
-  const posts = await fetch("http://127.0.0.1:3000/api/products").then((res) =>
-    res.json()
-  );
-  console.log(posts);
-  return posts.map((post) => ({
-    id: post._id.toString(),
-  }));
-}
+// export async function generateStaticParams() {
+//   const posts = await fetch("http://127.0.0.1:3000/api/products").then((res) =>
+//     res.json()
+//   );
+//   console.log(posts);
+//   return posts.map((post) => ({
+//     id: post._id.toString(),
+//   }));
+// }
 
 export default async function ProductPage({ params }) {
   const { id } = await params;
