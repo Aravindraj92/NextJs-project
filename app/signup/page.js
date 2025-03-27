@@ -1,20 +1,21 @@
 "use client";
-// import { UserLogin } from '../action';
+
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+// import { UserRegister } from "../action";
 
-export default function LoginForm() {
-  const router = useRouter();
+export default function UserForm() {
+  const [message, setMessage] = useState();
   const handleSubmit = async (formData) => {
-    console.log("iam in");
-    // const result = await UserLogin(formData);
-    if (result.success) {
-      console.log(result.token);
-      router.push("/dashboard");
-    }
+    // const result=await UserRegister(formData)
+    // setMessage(result.message)
+    // setTimeout(()=>{
+    //     setMessage(null);
+    // },2000)
   };
   return (
     <>
@@ -25,7 +26,7 @@ export default function LoginForm() {
             className="flex flex-col justify-center gap-10 mb-10"
           >
             <Typography variant="h6" gutterBottom className="text-center">
-              Login Form
+              Create Account
             </Typography>
             <TextField
               id="email"

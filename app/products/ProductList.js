@@ -12,6 +12,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
+import Skeleton from "@mui/material/Skeleton";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#fff",
@@ -29,33 +31,46 @@ export function ProductsList({ products }) {
     <>
       <div className="flex flex-col items-center m-20">
         <div className="grid grid-rows-3 gap-4 grid-cols-3 gap-4">
-          {products.map((product) => (
-            <Card sx={{ maxWidth: 345 }} key={product._id}>
-              <Image
-                src={product.image}
-                alt={product.name}
-                width={200}
-                height={350}
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {product.name}
-                </Typography>
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  {product.description}
-                  <Link href={`/product/${product._id}`}>
-                  <Button size="small">View More</Button></Link>
-                </Typography>
-              </CardContent>
-              <CardActions>
-                {/* <div className="flex items-center">
+          <Suspense
+            fallback={
+              <>
+                <Box sx={{ width: 300 }}>
+                  <Skeleton />
+                  <Skeleton animation="wave" />
+                  <Skeleton animation={false} />
+                </Box>
+              </>
+            }
+          >
+            {products.map((product) => (
+              <Card sx={{ maxWidth: 345 }} key={product._id}>
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  width={200}
+                  height={350}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {product.name}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                    {product.description}
+                    <Link href={`/product/${product._id}`}>
+                      <Button size="small">View More</Button>
+                    </Link>
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  {/* <div className="flex items-center">
                   <Button size="small" variant="contained">
                     Add to Cart
                   </Button>
                 </div> */}
-              </CardActions>
-            </Card>
-          ))}
+                </CardActions>
+              </Card>
+            ))}
+          </Suspense>
         </div>
       </div>
     </>
