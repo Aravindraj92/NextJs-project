@@ -6,16 +6,16 @@ import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-// import { UserRegister } from "../action";
+import { UserRegister } from "../action";
 
 export default function UserForm() {
   const [message, setMessage] = useState();
   const handleSubmit = async (formData) => {
-    // const result=await UserRegister(formData)
-    // setMessage(result.message)
-    // setTimeout(()=>{
-    //     setMessage(null);
-    // },2000)
+    const result = await UserRegister(formData);
+    setMessage(result.message);
+    setTimeout(() => {
+      setMessage(null);
+    }, 2000);
   };
   return (
     <>
@@ -55,6 +55,14 @@ export default function UserForm() {
           </form>
         </Card>
       </div>
+      {message && (
+        <div
+          class="text-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+          role="alert"
+        >
+          <span class="font-medium">{message}</span>
+        </div>
+      )}
     </>
   );
 }
