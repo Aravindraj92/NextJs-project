@@ -3,16 +3,15 @@ import Image from "next/image";
 import fetchProduct from "../../action";
 import fetchProducts from "../../action";
 
-export async function generateStaticParams() {
-  "use cache";
-  const posts = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products`
-  ).then((res) => res.json());
-  console.log(posts);
-  return posts.map((post) => ({
-    id: post._id.toString(),
-  }));
-}
+// export async function generateStaticParams() {
+//   const posts = await fetch(
+//     `${process.env.NEXT_PUBLIC_BASE_URL}/api/products`
+//   ).then((res) => res.json());
+//   console.log(posts);
+//   return posts.map((post) => ({
+//     id: post._id.toString(),
+//   }));
+// }
 
 export default async function ProductPage({ params }) {
   const { id } = await params;
