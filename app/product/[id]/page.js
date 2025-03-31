@@ -4,6 +4,7 @@ import fetchProduct from "../../action";
 import fetchProducts from "../../action";
 
 export async function generateStaticParams() {
+  "use cache";
   const posts = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/products`
   ).then((res) => res.json());
