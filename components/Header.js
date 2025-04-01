@@ -3,18 +3,12 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import Link from "next/link";
 import HomeIcon from "@mui/icons-material/Home";
+import { useRouter } from "next/navigation";
+import { UserLogout } from "../app/action";
 
 const pages = ["products", "blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -22,6 +16,11 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [token, setToken] = React.useState(null);
+  // const cookieStore = await cookies();
+  React.useEffect(() => {
+    setToken(localStorage.getItem("isLogin") || "");
+  }, []);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -36,6 +35,16 @@ function ResponsiveAppBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const router = useRouter();
+  const logout = async () => {
+    console.log("iam in");
+    const result = await UserLogout();
+    if (result.success) {
+      localStorage.removeItem("isLogin");
+      router.push("/login");
+    }
   };
 
   return (
@@ -62,9 +71,27 @@ function ResponsiveAppBar() {
               ))}
             </Box>
             <Box sx={{ flexGrow: 0 }}>
-              <Link href="/login"> Login</Link>
+              {token ? (
+                <form action={logout}>
+                  {/* <Link href="/login"> */}{" "}
+                  <Button
+                    sx={{ my: 2, color: "white", display: "block" }}
+                    type="submit"
+                  >
+                    Logout
+                  </Button>
+                  {/* </Link> */}
+                </form>
+              ) : (
+                <>
+                  {" "}
+                  <Link href="/login"> Login</Link>
+                  <Link href="/signup"> SignUp</Link>
+                </>
+              )}
+
               {/* <div className="pr-10"></div> */}
-              <Link href="/signup"> SignUp</Link>
+
               {/* <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />

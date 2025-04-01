@@ -14,7 +14,9 @@ export default function LoginForm() {
     console.log("iam in");
     const result = await UserLogin(formData);
     if (result.success) {
-      console.log(result.token);
+      // console.log(result.token);
+      localStorage.setItem("isLogin", true);
+
       router.push("/dashboard");
     }
     setMessage(result.message);

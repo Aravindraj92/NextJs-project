@@ -80,15 +80,15 @@ export async function UserLogin(formData) {
     user: plainUser,
   };
 }
-// export async function UserLogout(){
-//    const cookieStore = await cookies();
-//    // Delete the 'token' cookie to log the user out
-//    cookieStore.delete('token');
+export async function UserLogout() {
+  const cookieStore = await cookies();
+  // Delete the 'token' cookie to log the user out
+  cookieStore.delete("token");
 
-//    // Return a success response
+  // Return a success response
 
-//    return { success: true, message: "Logged out successfully"};
-// }
+  return { success: true, message: "Logged out successfully" };
+}
 // Server action to fetch all products from MongoDB
 export async function fetchProducts() {
   try {
